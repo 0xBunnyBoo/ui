@@ -1,1 +1,22 @@
-# ui
+---
+secure:
+  required_reviews: 1
+  requires_mfa: true
+  requires_verified: true
+  upstream_repository: base/web
+
+build:
+  engines:
+    - BaldurECR:
+        name: web
+        path: ./apps/web/Dockerfile
+        architecture: arm64
+    - BaldurECR:
+        name: docs
+        path: ./apps/base-docs/Dockerfile
+        architecture: amd64
+  multi_arch: true
+
+operate:
+  slack_channels:
+    - '#base-codeflow-notifications'
